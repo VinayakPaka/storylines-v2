@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { IconArrowRight, IconBrandX, IconBrandGithub, IconBrandDiscord } from '@tabler/icons-react';
 import { Button } from '../../components/ui/button';
 import AnimatedShinyText from '../../components/magicui/animated-shiny-text';
-import { BentoGrid, BentoCard } from "../../components/magicui/bento-grid";
 import { cn } from '../../lib/utils';
 
 const Hero = () => {
@@ -20,7 +19,7 @@ const Hero = () => {
                 )}
               >
                 <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-                  <span>🐇 Go Down The Rabbit Hole</span>
+                  <span>🐇 Go down the rabbit hole</span>
                   <IconArrowRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                 </AnimatedShinyText>
               </div>
@@ -38,15 +37,15 @@ const Hero = () => {
             <Button variant="secondary" className="w-full sm:w-auto">Explore Stories</Button>
           </div>
           <div className="flex justify-center space-x-6">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
+            <a href="https://github.com/praneethravuri/storylines-v2" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
               <IconBrandGithub className="w-6 h-6" />
             </a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
+            <a href="https://x.com/storylines_in" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
               <IconBrandX className="w-6 h-6" />
             </a>
-            <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
+            {/* <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">
               <IconBrandDiscord className="w-6 h-6" />
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

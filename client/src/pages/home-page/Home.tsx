@@ -51,7 +51,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex-grow p-4 md:p-8 overflow-y-auto ">
+    <div className="flex-grow p-4 md:p-8 overflow-y-auto min-h-screen">
       <div className="max-w-7xl mx-auto">
         <Header />
         <SearchAndFilterBar
