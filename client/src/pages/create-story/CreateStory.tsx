@@ -8,7 +8,7 @@ import { Story } from "../../types/Story";
 import { createStory } from '../../services/storyAPI';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { IconBold, IconItalic, IconList, IconListNumbers, IconH2, IconDeviceFloppy } from '@tabler/icons-react';
+import { IconBold, IconItalic, IconList, IconListNumbers, IconH2, IconDeviceFloppy, IconArrowLeft } from '@tabler/icons-react';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
 
 const CreateStory: React.FC = () => {
@@ -24,12 +24,15 @@ const CreateStory: React.FC = () => {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: '<p>Start writing your story here...</p>',
+    content: '<p></p>',
   });
 
   const processContent = (content: string): string => {
     const sanitizedContent = sanitizeHtml(content);
     return sanitizedContent.replace(/<\/p><p>/g, '</p><br><p>');
+  };
+  const handleGoBackToThemeRoom = () => {
+    navigate(`/story-map/${themeRoomId}`);
   };
 
   const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
@@ -59,6 +62,16 @@ const CreateStory: React.FC = () => {
     <form onSubmit={handleSubmit} className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-[1fr_300px] pt-24">
       <div className="flex flex-col border-r bg-background">
         <header className="sticky top-0 flex h-14 items-center gap-4 border-b bg-background px-4 sm:h-16 sm:px-6">
+          <Button
+            type="button"
+            variant="custom"
+            size="icon"
+            onClick={handleGoBackToThemeRoom}
+            className="mr-2"
+          >
+            <IconArrowLeft className="h-5 w-5" />
+            <span className="sr-only">Go back to theme room</span>
+          </Button>
           <div className="flex-1">
             <Input
               type="text"
@@ -68,7 +81,7 @@ const CreateStory: React.FC = () => {
               className="h-8 w-full bg-transparent text-lg font-medium focus:outline-none sm:h-10"
             />
           </div>
-          <Button type="submit" variant="ghost" size="icon" disabled={isLoading}>
+          <Button type="submit" variant="custom" size="icon" disabled={isLoading}>
             <IconDeviceFloppy className="h-5 w-5" />
             <span className="sr-only">Save</span>
           </Button>
@@ -77,53 +90,53 @@ const CreateStory: React.FC = () => {
           <div className="flex items-center space-x-2 mb-2 overflow-x-auto pb-2">
             <Button
               type="button"
-              variant="ghost"
+              variant="custom"
               size="sm"
               onClick={() => editor?.chain().focus().toggleBold().run()}
-              className={`p-1 ${editor?.isActive('bold') ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              className={`p-1 ${editor?.isActive('bold') ? 'bg-neutral-50 dark:bg-neutral-950 border' : ''}`}
             >
               <IconBold className="h-5 w-5" />
             </Button>
             <Button
               type="button"
-              variant="ghost"
+              variant="custom"
               size="sm"
               onClick={() => editor?.chain().focus().toggleItalic().run()}
-              className={`p-1 ${editor?.isActive('italic') ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              className={`p-1 ${editor?.isActive('italic') ? 'bg-neutral-50 dark:bg-neutral-950 border' : ''}`}
             >
               <IconItalic className="h-5 w-5" />
             </Button>
             <Button
               type="button"
-              variant="ghost"
+              variant="custom"
               size="sm"
               onClick={() => editor?.chain().focus().toggleHeading({ level: 2 }).run()}
-              className={`p-1 ${editor?.isActive('heading', { level: 2 }) ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              className={`p-1 ${editor?.isActive('heading', { level: 2 }) ? 'bg-neutral-50 dark:bg-neutral-950 border' : ''}`}
             >
               <IconH2 className="h-5 w-5" />
             </Button>
             <Button
               type="button"
-              variant="ghost"
+              variant="custom"
               size="sm"
               onClick={() => editor?.chain().focus().toggleBulletList().run()}
-              className={`p-1 ${editor?.isActive('bulletList') ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              className={`p-1 ${editor?.isActive('bulletList') ? 'bg-neutral-50 dark:bg-neutral-950 border' : ''}`}
             >
               <IconList className="h-5 w-5" />
             </Button>
             <Button
               type="button"
-              variant="ghost"
+              variant="custom"
               size="sm"
               onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-              className={`p-1 ${editor?.isActive('orderedList') ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+              className={`p-1 ${editor?.isActive('orderedList') ? 'bg-neutral-50 dark:bg-neutral-950 border' : ''}`}
             >
               <IconListNumbers className="h-5 w-5" />
             </Button>
           </div>
           <div className="prose max-w-none flex-grow flex flex-col">
-            <div className="prose dark:prose-invert max-w-none flex-grow overflow-y-auto">
-              <EditorContent editor={editor} className="h-full" />
+            <div className="prose dark:prose-invert max-w-none flex-grow overflow-y-auto h-full">
+              <EditorContent editor={editor} className="h-full focus:outline-none focus:border-none focus:ring" />
             </div>
             {error && (
               <Alert variant="destructive">
@@ -143,14 +156,16 @@ const CreateStory: React.FC = () => {
               type="submit"
               disabled={isLoading}
             >
-              {isLoading ? 'Creating...' : 'Create Story'}
+              {isLoading ? 'Publishing...' : 'Publish'}
             </Button>
           </div>
         </div>
       </div>
       <div className="hidden lg:block">
         <div className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-4 sm:h-16 sm:px-6">
-          <h2 className="text-lg font-medium">Related</h2>
+          <div className='text-center w-full'>
+            <h2 className="text-lg font-medium">Related</h2>
+          </div>
         </div>
         <div className="grid gap-4 p-4 sm:p-6">
           {/* Template cards */}

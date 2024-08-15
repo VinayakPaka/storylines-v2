@@ -15,7 +15,7 @@ const Hero = () => {
             <div className="inline-block">
               <div
                 className={cn(
-                  "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+                  "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-default hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
                 )}
               >
                 <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-2 text-sm sm:text-base transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
@@ -25,7 +25,7 @@ const Hero = () => {
               </div>
             </div>
           </div>
-         
+
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4">
             Craft Your <span className='text-accent'>Infinite</span> Story
           </h1>
