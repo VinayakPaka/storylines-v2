@@ -34,7 +34,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
             <Button variant="default" onClick={() => navigate('/home')} className="w-full sm:w-auto">Start Writing</Button>
-            <Button variant="secondary" className="w-full sm:w-auto">Explore Stories</Button>
+            {/* <Button variant="secondary" className="w-full sm:w-auto">Explore Stories</Button> */}
           </div>
           <div className="flex justify-center space-x-6">
             <a href="https://github.com/praneethravuri/storylines-v2" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-muted-foreground transition-colors">

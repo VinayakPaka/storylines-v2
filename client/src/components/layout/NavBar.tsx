@@ -44,7 +44,7 @@ const AvatarMenu = () => {
       <DropdownMenuContent className="w-56 p-2 rounded-2xl bg-neutral-50 dark:bg-neutral-950">
         <div className="flex flex-col px-2 py-1.5">
           <span className="text-sm font-semibold">Praneeth Ravuri</span>
-          <span className="text-xs text-muted-foreground">ravuripraneeth2500@gmail.com</span>
+          <span className="text-xs text-muted-foreground">pravdevrav@gmail.com</span>
         </div>
         <DropdownMenuSeparator />
         {menuItems.map(({ icon: Icon, label, link }) => (
@@ -87,8 +87,8 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className='fixed top-0 left-0 right-0 flex justify-center items-start m-2 z-10'>
-      <div className='flex w-full sm:w-1/3 items-center justify-between border border-border sm:m-5 p-3 bg-neutral-50/80 dark:bg-neutral-950/80 rounded-xl sm:rounded-full backdrop-blur-xl'>
+    <nav className='fixed top-0 left-0 right-0 flex justify-center items-start m-2 z-10 '>
+      <div className='flex w-full md:w-1/3 sm:w-1/2 items-center justify-between border border-border sm:m-5 p-3 bg-neutral-50/80 dark:bg-neutral-950/80 rounded-full backdrop-blur-xl'>
         <div className="name">
           <h1 className='text-lg sm:text-xl font-bold'>StoryLines</h1>
         </div>
@@ -96,7 +96,7 @@ const NavBar = () => {
           {!showAvatarMenu && (
             <>
               <a href="/about" className="text-foreground font-semibold hover:text-muted-foreground">About</a>
-              <a href="/signin" className="text-foreground font-semibold hover:text-muted-foreground">Sign In</a>
+              {/* <a href="/signin" className="text-foreground font-semibold hover:text-muted-foreground">Sign In</a> */}
             </>
           )}
           {showAvatarMenu && <AvatarMenu />}

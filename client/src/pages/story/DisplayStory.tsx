@@ -4,7 +4,8 @@ import { Story } from '../../types/Story';
 import LoadingScreen from '../../components/layout/LoadingScreen';
 import { fetchFilteredStories } from '../../services/storyAPI';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Card, CardContent } from "../../components/ui/card";
+import { IconArrowLeft, IconArrowRight, IconUser, IconTag, IconCalendar } from '@tabler/icons-react';
 
 const DisplayStory: React.FC = () => {
     const location = useLocation();
@@ -58,81 +59,84 @@ const DisplayStory: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen pt-20 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-                <div className="p-6 sm:p-8">
-                    <Link 
+        <div className="container mx-auto px-4 py-8 mt-16 md:mt-24">
+            <div className="flex flex-col md:flex-row gap-8">
+                <div className="w-full md:w-2/3 space-y-6">
+                    <Link
                         to={`/story-map/${story.themeRoomId}`}
-                        className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors duration-200"
+                        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     >
-                        <ChevronLeft className="w-5 h-5 mr-1" />
-                        Back to theme room
+                        <IconArrowLeft className="w-4 h-4" />
+                        Back to Theme Room
                     </Link>
-
-                    <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-800">{story.title}</h1>
-                    
-                    <div className="mb-4 text-gray-600">
-                        <span className="font-semibold">Authors:</span> {story.author.join(', ')}
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{story.title}</h1>
+                    {/* <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-2">
+                            <IconUser className="w-4 h-4" />
+                            <span>{story.authorId}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <IconCalendar className="w-4 h-4" />
+                            <span>Updated recently</span>
+                        </div>
+                    </div> */}
+                    <div className="prose prose-lg max-w-none">
+                        <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(story.content) }} />
                     </div>
-                    
-                    <div className="mb-6 text-gray-600">
-                        <span className="font-semibold">Theme Room:</span> {story.themeRoomId}
-                    </div>
-                    
-                    <div className="mb-8">
-                        <h2 className="text-xl font-semibold mb-3 text-gray-700">Story Content:</h2>
-                        <div 
-                            className="prose prose-sm sm:prose lg:prose-lg max-w-none"
-                            dangerouslySetInnerHTML={{ __html: sanitizeHtml(story.content) }}
-                        />
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                        {prevStories.length > 0 && (
-                            <div>
-                                <h2 className="text-xl font-bold mb-3 text-gray-700">Previous Stories</h2>
-                                <ul className="space-y-2">
-                                    {prevStories.map((prevStory) => (
-                                        <li key={prevStory._id}>
-                                            <button
-                                                onClick={() => handleStoryClick(prevStory)}
-                                                className="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200"
-                                            >
-                                                <ChevronLeft className="inline w-4 h-4 mr-1" />
-                                                {prevStory.title}
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
+                </div>
+                <div className="w-full md:w-1/3 space-y-8">
+                    {/* <Card>
+                        <CardContent className="p-6 space-y-4">
+                            <h3 className="text-xl font-semibold">Theme Room Details</h3>
+                            <div className="flex items-center gap-2 text-sm">
+                                <IconTag className="w-4 h-4" />
+                                <span>{story.themeRoomId}</span>
                             </div>
-                        )}
-
-                        {nextStories.length > 0 && (
-                            <div>
-                                <h2 className="text-xl font-bold mb-3 text-gray-700">Next Stories</h2>
-                                <ul className="space-y-2">
-                                    {nextStories.map((nextStory) => (
-                                        <li key={nextStory._id}>
-                                            <button
-                                                onClick={() => handleStoryClick(nextStory)}
-                                                className="text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200"
-                                            >
-                                                {nextStory.title}
-                                                <ChevronRight className="inline w-4 h-4 ml-1" />
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-
-                    <button
-                        onClick={() => navigate(-1)}
-                        className="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 text-lg font-semibold"
-                    >
-                        Back to Stories
-                    </button>
+                            <Link
+                                to={`/story-map/${story.themeRoomId}`}
+                                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+                            >
+                                View Theme Room
+                                <IconArrowRight className="w-4 h-4" />
+                            </Link>
+                        </CardContent>
+                    </Card> */}
+                    {/* {prevStories.length > 0 && (
+                        <div className="space-y-4">
+                            <h3 className="text-xl font-semibold">Previous Stories</h3>
+                            {prevStories.map((prevStory) => (
+                                <Card key={prevStory._id} className="hover:shadow-md transition-shadow">
+                                    <CardContent className="p-4 space-y-2">
+                                        <h4 className="text-lg font-medium">{prevStory.title}</h4>
+                                        <button
+                                            onClick={() => handleStoryClick(prevStory)}
+                                            className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+                                        >
+                                            Read More
+                                        </button>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    )} */}
+                    {/* {nextStories.length > 0 && (
+                        <div className="space-y-4">
+                            <h3 className="text-xl font-semibold">Next Stories</h3>
+                            {nextStories.map((nextStory) => (
+                                <Card key={nextStory._id} className="hover:shadow-md transition-shadow">
+                                    <CardContent className="p-4 space-y-2">
+                                        <h4 className="text-lg font-medium">{nextStory.title}</h4>
+                                        <button
+                                            onClick={() => handleStoryClick(nextStory)}
+                                            className="text-sm font-medium text-primary hover:text-primary-dark transition-colors"
+                                        >
+                                            Read More
+                                        </button>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    )} */}
                 </div>
             </div>
         </div>
