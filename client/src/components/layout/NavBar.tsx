@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
@@ -23,11 +23,11 @@ import {
 import { ModeToggle } from "../mode-toggle"
 
 const menuItems = [
-  { icon: IconHome, label: 'Home', link: '/' },
-  { icon: IconBookmark, label: 'Bookmarks', link: '/bookmarks' },
-  { icon: IconBooks, label: 'Storybooks', link: '/storybooks' },
+  { icon: IconHome, label: 'Home', link: '/home' },
+  { icon: IconBookmark, label: 'Favorites', link: '/favorites' },
+  { icon: IconBooks, label: 'Story Map', link: '/story-map/1' },
   { icon: IconUser, label: 'Profile', link: '/profile' },
-  { icon: IconHelp, label: 'Support', link: '/support' },
+  { icon: IconHelp, label: 'Support', link: '/help' },
   { icon: IconHeart, label: 'Donate', link: '/donate' },
   { icon: IconSettings, label: 'Settings', link: '/settings' },
 ]
@@ -80,15 +80,24 @@ const AvatarMenu = () => {
     </DropdownMenu>
   );
 };
-
-const NavBar = () => {
+interface NavBarProps {
+  onToggleSidebar: () => void;
+}
+const NavBar: React.FC<NavBarProps> = ({ onToggleSidebar }) => {
   const { pathname } = useLocation();
   const showAvatarMenu = !['/', '/about', '/donate'].includes(pathname);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className='fixed top-0 left-0 right-0 flex justify-center items-start m-2 z-10 '>
+    <nav className='fixed top-0 left-0 right-0 flex justify-center items-start m-2 z-10'>
       <div className='flex w-full md:w-1/3 sm:w-1/2 items-center justify-between border border-border sm:m-5 p-3 bg-neutral-50/80 dark:bg-neutral-950/80 rounded-full backdrop-blur-xl'>
+        <button
+          className="flex items-center justify-center mr-2"
+          onClick={onToggleSidebar}
+          aria-label="Toggle Sidebar"
+        >
+          <IconMenu2 size={24} />
+        </button>
         <div className="name">
           <h1 className='text-lg sm:text-xl font-bold'>StoryLines</h1>
         </div>
@@ -96,7 +105,6 @@ const NavBar = () => {
           {!showAvatarMenu && (
             <>
               <a href="/about" className="text-foreground font-semibold hover:text-muted-foreground">About</a>
-              {/* <a href="/signin" className="text-foreground font-semibold hover:text-muted-foreground">Sign In</a> */}
             </>
           )}
           {showAvatarMenu && <AvatarMenu />}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home-page/Home';
 import Favorites from './pages/Favorites';
@@ -11,13 +11,21 @@ import DisplayStory from './pages/story/DisplayStory';
 import { ThemeProvider } from './components/theme-provider';
 import NavBar from './components/layout/NavBar';
 import Footer from './components/layout/Footer';
+import Sidebar from './components/layout/Sidebar';
 
 const App: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="App relative overflow-y-hidden">
-        <NavBar />
-        <main className="">
+      <div className="app-container">
+        <NavBar onToggleSidebar={toggleSidebar} />
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+        <main className={`main-content ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path="/home" element={<Home />} />
@@ -25,13 +33,11 @@ const App: React.FC = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/help" element={<Help />} />
             <Route path="/story-map/:id" element={<StoryMap />} />
-            <Route path="story" element={<DisplayStory />} />
+            <Route path="/story" element={<DisplayStory />} />
             <Route path="/create-story" element={<CreateStory />} />
           </Routes>
         </main>
-        <div className="footer">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     </ThemeProvider>
   );
